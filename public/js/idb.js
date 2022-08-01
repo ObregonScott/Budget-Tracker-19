@@ -32,5 +32,92 @@ function popTable() {
 }
 //   POP CHART
 function pChart() {
+  let reversed = transactions.slice().reverse();
+  let sum = 0;
+  let labels = reversed.map(t => {
+    let date = new Date(t.date);
+    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+  });
+  let data = reversed.map(t => {
+    sum += parseInt(t.value);
+    return sum;
+  });
+//   DESTORY!!!!!!!!!!!!!!!!!!!!!!
+  if (myChart) {
+    myChart.destroy();
+  }
+  let ctx = document.getElementById("myChart").getContext("2d");
 
+  myChart = new Chart(ctx, {
+    type: 'line',
+      data: {
+        labels,
+        datasets: [{
+            label: "Total Over Time",
+            fill: true,
+            backgroundColor: "#6666ff",
+            data
+        }]
+    }
+  });
 }
+
+// AFTER POP YOU GOTTA SEND
+function sendTransaction(isAdding) {
+    let nameEl = document.querySelector("#t-name");
+    let amountEl = document.querySelector("#t-amount");
+    let errorEl = document.querySelector(".form .error");
+
+    if (nameEl.value === "" || amountEl.value === "") {
+      errorEl.textContent = "Missing Information";
+      return;
+    }
+    else {
+      errorEl.textContent = "";
+    }
+  
+    let transaction = {
+      name: nameEl.value,
+      value: amountEl.value,
+      date: new Date().toISOString()
+    };
+  
+    if (!isAdding) {
+      transaction.value *= -1;
+    }
+
+    transactions.unshift(transaction);
+//   RERUN cause stack told you to
+    popChart();
+    popTable();
+    popTotal();
+    
+    fetch("/api/transaction", {
+      method: "POST",
+      body: JSON.stringify(transaction),
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => {    
+      return response.json();
+    })
+    .then(data => {
+      if (data.errors) {
+        errorEl.textContent = "Missing Information";
+      }
+      else {
+
+        nameEl.value = "";
+        amountEl.value = "";
+      }
+    })
+
+    // CATCH ERR
+    .catch(err => {
+      saveRecord(transaction);
+      nameEl.value = "";
+      amountEl.value = "";
+    });
+  }
