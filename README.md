@@ -22,7 +22,7 @@
 
   ## Instructions
 
-  After cloning repo to your local computer, open in code editor and invoke application with node index to run
+  After cloning repo to your local computer, open in code editor and invoke application with npm start to run
 
   ## Usage
 
