@@ -1,12 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="shortcut icon" href="icons/icon-192x192.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="manifest" href="./manifest.json">
+    <title>Budget Tracker</title>
 </head>
+
 <body>
-    
+    <!-- Your Total -->
+    <div class="wrapper">
+        <div class="total">
+            <div class="total">Your total is: $<span id="total">0</span></div>
+        </div>
+
+        <!-- Form -->
+        <div class="form">
+            <input type="text" id="t-name" placeholder="Name of transaction" />
+            <input type="number" min="0" id="t-amount" placeholder="Transaction amount" />
+            <button id="add-btn"><i class="fa fa-plus buttons"></i> Add Funds</button>
+            <button id="sub-btn"><i class="fa fa-minus"></i> Subtract Funds</button>
+            <p class="error"></p>
+        </div>
+
+        <!-- Transactions -->
+        <div class="transactions">
+            <!-- Table -->
+            <table>
+                <!-- THead -->
+                <thead>
+
+                    <th>Transaction</th>
+                    <th>Amount</th>
+
+                </thead>
+                <!-- Tbody -->
+                <tbody id="tbody">
+
+                </tbody>
+            </table>
+        </div>
+        <!-- My Chart -->
+
+        <canvas id="myChart"></canvas>
+
+        <!-- Scripts -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <script src="js/idb.js"></script>
+        <script src="js/index.js"></script>
+        <script>
+            (function () {
+                if ("serviceWorker" in navigator) {
+                    navigator.serviceWorker.register("./service-worker.js")
+                        .then(() => console.log("Service Worker registered successfully."))
+                        .catch(error => console.log("Service Worker registration failed:", error));
+                }
+            })();
+        </script>
 </body>
+
 </html>
