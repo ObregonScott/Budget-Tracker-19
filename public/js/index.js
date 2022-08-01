@@ -31,7 +31,7 @@ function popTable() {
     });
 }
 //   POP CHART
-function pChart() {
+function popChart() {
   let reversed = transactions.slice().reverse();
   let sum = 0;
   let labels = reversed.map(t => {
