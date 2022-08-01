@@ -121,3 +121,10 @@ function sendTransaction(isAdding) {
       amountEl.value = "";
     });
   }
+// SEND SEND SEND, BTN BTN, ON CLICKITY CLICK
+  document.querySelector("#add-btn").onclick = function() {
+    sendTransaction(true);
+  };
+  document.querySelector("#sub-btn").onclick = function() {
+    sendTransaction(false);
+  };
