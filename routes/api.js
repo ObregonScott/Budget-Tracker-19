@@ -17,3 +17,8 @@ router.post("/api/transaction/bulk", ({body}, res) => {
   });
 
 //   router get
+router.get("/api/transaction", (req, res) => {
+ 
+  });
+
+  module.exports = router;
