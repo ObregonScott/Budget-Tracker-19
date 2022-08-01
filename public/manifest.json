@@ -42,7 +42,6 @@
         }
     ],
     "name": "Budget Tracker",
-    "short_name": "Budget",
     "description": "An app that allows you to add expenses and deposits to their budget with or without a connection",
     "background_color": "#c5edd0",
     "theme_color": "#fce442",
