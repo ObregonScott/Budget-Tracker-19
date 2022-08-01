@@ -7,6 +7,8 @@ fetch("/api/transaction")
         return response.json();
     })
     .then(data => {
+
+
         transactions = data;
         popTotal();
         popTable();
@@ -81,10 +83,12 @@ function sendTransaction(isAdding) {
       value: amountEl.value,
       date: new Date().toISOString()
     };
-  
     if (!isAdding) {
       transaction.value *= -1;
     }
+    transactions.isArray(transactions);
+
+
 
     transactions.unshift(transaction);
 //   RERUN cause stack told you to
